@@ -1,13 +1,10 @@
-const https = require("https");
+const http = require("http");
 const fs = require("fs");
 const url = require("url");
 const services = require("./services");
 const jsonBody = require("body/json");
 
-const server = https.createServer({
-  key: fs.readFileSync("./ssl/key.pem"),
-  cert: fs.readFileSync("./ssl/cert.pem"),
-});
+const server = http.createServer();
 server.on("request", (request, response) => {
   const parsedUrl = url.parse(request.url, true);
   if (request.method === "GET" && parsedUrl.pathname === "/metadata") {
@@ -23,7 +20,6 @@ server.on("request", (request, response) => {
       services.createUser(body["userName"]);
     }
   });
-  response.end("This was served with https!");
 });
 
-server.listen(443);
+server.listen(8080);
