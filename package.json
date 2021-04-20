@@ -1,0 +1,32 @@
+{
+  "name": "artist-collaboration",
+  "version": "1.0.0",
+  "description": "A collaboration tool for artists.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/educhinski/artist-collaboration.git"
+  },
+  "keywords": [
+    "node",
+    "http",
+    "server",
+    "artist",
+    "collaboration",
+    "upload"
+  ],
+  "author": "Edwin Mambo",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/educhinski/artist-collaboration/issues"
+  },
+  "homepage": "https://github.com/educhinski/artist-collaboration#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body": "^5.1.0",
+    "formidable": "^1.2.2"
+  }
+}
