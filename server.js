@@ -3,6 +3,7 @@ const fs = require("fs");
 const url = require("url");
 const services = require("./services");
 const jsonBody = require("body/json");
+const formidable = require("formidable");
 
 const server = http.createServer();
 
@@ -32,10 +33,27 @@ server.on("request", (request, response) => {
         services.createUser(body["userName"]);
       }
     });
+  } else if (request.method === "POST" && parsedUrl.pathname === "/upload") {
+    const form = new formidable.IncomingForm({
+      uploadDir: __dirname,
+      keepExtensions: true,
+      multiples: true,
+      maxFileSize: 5 * 1024 * 1024,
+      encoding: "utf-8",
+      maxFields: 20,
+    });
+    form.parse(request, (err, fields, files) => {
+      if (err) {
+        console.log(err);
+        response.statusCode = 500;
+        response.end("Error!");
+      }
+      console.log(files);
+      response.statusCode = 200;
+      response.end("Success!");
+    });
   } else {
-    response.statusCode = 500;
-    response.write("An error has occurred");
-    response.end();
+    fs.createReadStream("./index.html").pipe(response);
   }
 });
 
