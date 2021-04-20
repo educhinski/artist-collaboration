@@ -5,7 +5,16 @@ const services = require("./services");
 const jsonBody = require("body/json");
 
 const server = http.createServer();
+
 server.on("request", (request, response) => {
+  // handling errors
+  request.on("error", (err) => {
+    console.error("request error");
+  });
+  response.on("error", (err) => {
+    console.error("response error");
+  });
+
   const parsedUrl = url.parse(request.url, true);
   if (request.method === "GET" && parsedUrl.pathname === "/metadata") {
     const { id } = parsedUrl.query;
@@ -24,8 +33,8 @@ server.on("request", (request, response) => {
       }
     });
   } else {
-    response.statusCode = 404;
-    response.setHeader("X-Powered-By", "Node");
+    response.statusCode = 500;
+    response.write("An error has occurred");
     response.end();
   }
 });
